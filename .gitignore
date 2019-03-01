@@ -61,3 +61,6 @@ typings/
 .next
 
 yarn.lock
+
+#ignore all css files
+/src/**/*.css
