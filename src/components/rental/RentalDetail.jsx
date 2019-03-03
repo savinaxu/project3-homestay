@@ -4,7 +4,7 @@ class RentalDetail extends Component {
     render() {
         return(
             <div>
-                Hello
+                <h1>Hello</h1>
             </div>
         )
     }
