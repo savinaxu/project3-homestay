@@ -64,3 +64,6 @@ yarn.lock
 
 #ignore all css files
 /src/**/*.css
+
+#ignore build folder
+/build
