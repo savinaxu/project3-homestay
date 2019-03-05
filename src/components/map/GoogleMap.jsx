@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Cacher } from 'services/cacher';
+
 import {
     withScriptjs,
     withGoogleMap,
@@ -27,6 +29,7 @@ const withGeocode = WrappedComponent => {
     return class extends Component {
         constructor() {
             super()
+            this.cacher = new Cacher()
             this.state = {
                 coordinates: {
                     lat: 0,
@@ -38,35 +41,44 @@ const withGeocode = WrappedComponent => {
         }
 
         componentWillMount() {
-            this.geocodeLocation();
+            this.getGeocodedLocation();
         }
 
-        geocodeLocation() {
-            const location = this.props.location
+        geocodeLocation(location){
             const geocoder = new window.google.maps.Geocoder();
 
-            geocoder.geocode({address: location}, (result, status) => {
-                if (status === 'OK') {
-                    const geometry = result[0].geometry.location;
-                    const coordinates = { lat: geometry.lat(), lng: geometry.lng()};
-                    this.setState({
-                        coordinates
+            return new Promise((resolve, reject) => {
+                geocoder.geocode({address: location}, (result, status) => {
+                    if (status === 'OK') {
+                        const geometry = result[0].geometry.location;
+                        const coordinates = { lat: geometry.lat(), lng: geometry.lng()};
+                        this.cacher.cacheValue(location, coordinates);
+                        resolve(coordinates);
+                    } else {
+                        reject('ERROR!!!!');
+                    }
+                });
+            });
+        }
+
+        getGeocodedLocation() {
+            const location = this.props.location
+
+            if (this.cacher.isValueCached(location)) {
+                this.setState({
+                    coordinates: this.cacher.getCachedValue(location)
+                })
+            } else {
+                this.geocodeLocation(location)
+                    .then((coordinates)=> {
+                        this.setState({
+                            coordinates
+                        })
+                    },
+                    (error) => {
+                        console.log(error)
                     })
-                }
-            })
-      
-            // return new Promise((resolve, reject) => {
-            //     geocoder.geocode({address: location}, (result, status) => {
-            //         if (status === 'OK') {
-            //         const geometry = result[0].geometry.location;
-            //         const coordinates = { lat: geometry.lat(), lng: geometry.lng()};
-            //         this.cacher.cacheValue(location, coordinates);
-            //         resolve(coordinates);
-            //         } else {
-            //         reject('ERROR!!!!');
-            //         }
-            //     });
-            // });
+            }   
         }
         
         render() {
