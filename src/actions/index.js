@@ -27,10 +27,8 @@ const fetchRentalsSuccess = rentals => {
 export const fetchRentals = () => {
     return dispatch => {
         axios.get("/api/rentals")
-             .then(rentals => {
-                 debugger
-                 dispatch(fetchRentalsSuccess(rentals.data))
-             })
+             .then(res => res.data)
+             .then(rentals => dispatch(fetchRentalsSuccess(rentals)))
     }
 }
 
@@ -40,9 +38,8 @@ export const fetchRentalsById = (rentalId) => {
         dispatch(fetchRentalsByIdInit())
 
         axios.get(`/api/rentals/${rentalId}`)
-             .then(rental => {
-                dispatch(fetchRentalsByIdSuccess(rental))
-             })
+             .then(res => res.data)
+             .then(rental => dispatch(fetchRentalsByIdSuccess(rental)))
     }  
 }
 
