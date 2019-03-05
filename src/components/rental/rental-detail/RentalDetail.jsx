@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from 'actions'
 import { RentalDetailInfo } from './RentalDetailInfo'
+import RentalMap from './RentalMap'
+
 class RentalDetail extends Component {
     componentWillMount() {
         //dispatch action
@@ -17,12 +19,12 @@ class RentalDetail extends Component {
                 <section id='rentalDetails'>
                     <div className='upper-section'>
                         <div className='row'>
-                        <div className='col-md-6'>
-                            <img src={rental.image} alt=''></img>
-                        </div>
-                        <div className='col-md-6'>
-                            <img src={rental.image} alt=''></img>
-                        </div>
+                            <div className='col-md-6'>
+                                <img src={rental.image} alt=''></img>
+                            </div>
+                            <div className='col-md-6'>
+                                <RentalMap location={`${rental.city}, ${rental.street}`} />
+                            </div>
                         </div>
                     </div>
 
