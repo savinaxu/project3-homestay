@@ -6,7 +6,7 @@ const rentalRoutes = require('./routes/rentals')
 const PORT = process.env.PORT || 3001
 const app = express()
 
-app.use('/api/vi/rentals',rentalRoutes)
+app.use('/api/rentals',rentalRoutes)
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
