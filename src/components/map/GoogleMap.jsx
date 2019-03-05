@@ -3,19 +3,21 @@ import {
     withScriptjs,
     withGoogleMap,
     GoogleMap,
-    Marker,
+    Circle,
+    InfoWindow
 } from "react-google-maps";
 
 const MapComponent = props => {
     const { coordinates } = props;
     return (
         <GoogleMap
-            defaultZoom={8}
+            defaultZoom={13}
             defaultCenter={coordinates}
             center={coordinates}
         >
-            <Marker
-            position={coordinates}
+            <Circle
+                center={coordinates}
+                radius={500}
             />
         </GoogleMap>
     )
