@@ -10,17 +10,24 @@ import {
 } from "react-google-maps";
 
 const MapComponent = props => {
-    const { coordinates } = props;
+    const { coordinates, isError, isLocationLoaded } = props;
     return (
         <GoogleMap
             defaultZoom={13}
             defaultCenter={coordinates}
             center={coordinates}
+            options={{disableDefaultUI: isError ? true : false}}
         >
-            <Circle
-                center={coordinates}
-                radius={500}
-            />
+            { isLocationLoaded && !isError && <Circle center={coordinates} radius={500} /> }
+            { isLocationLoaded && isError &&
+                <InfoWindow position={coordinates} options={{maxWidth: 300}}>
+                    <div>
+                        Uuuuups, there is problem to find location on the map, we are trying to resolve
+                        problem as fast as possible. Contact host for additional informations if you are
+                        still interested in booking this place. We are sorry for incoviniance.
+                    </div>
+                </InfoWindow>
+            }
         </GoogleMap>
     )
 }
@@ -44,6 +51,13 @@ const withGeocode = WrappedComponent => {
             this.getGeocodedLocation();
         }
 
+        updateCoordinates(coordinates) {
+            this.setState({
+                coordinates,
+                isLocationLoaded: true
+            })
+        }
+
         geocodeLocation(location){
             const geocoder = new window.google.maps.Geocoder();
 
@@ -65,18 +79,17 @@ const withGeocode = WrappedComponent => {
             const location = this.props.location
 
             if (this.cacher.isValueCached(location)) {
-                this.setState({
-                    coordinates: this.cacher.getCachedValue(location)
-                })
+                this.updateCoordinates(this.cacher.getCachedValue(location));
             } else {
                 this.geocodeLocation(location)
                     .then((coordinates)=> {
-                        this.setState({
-                            coordinates
-                        })
+                        this.updateCoordinates(coordinates);
                     },
                     (error) => {
-                        console.log(error)
+                        this.setState({
+                            isLocationLoaded: true, 
+                            isError: true
+                        })
                     })
             }   
         }
