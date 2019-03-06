@@ -16,6 +16,7 @@ const MapComponent = props => {
             defaultZoom={13}
             defaultCenter={coordinates}
             center={coordinates}
+            options={{disableDefaultUI: isError ? true : false}}
         >
             { isLocationLoaded && !isError && <Circle center={coordinates} radius={500} /> }
             { isLocationLoaded && isError &&
@@ -50,6 +51,13 @@ const withGeocode = WrappedComponent => {
             this.getGeocodedLocation();
         }
 
+        updateCoordinates(coordinates) {
+            this.setState({
+                coordinates,
+                isLocationLoaded: true
+            })
+        }
+
         geocodeLocation(location){
             const geocoder = new window.google.maps.Geocoder();
 
@@ -71,17 +79,11 @@ const withGeocode = WrappedComponent => {
             const location = this.props.location
 
             if (this.cacher.isValueCached(location)) {
-                this.setState({
-                    coordinates: this.cacher.getCachedValue(location),
-                    isLocationLoaded: true
-                })
+                this.updateCoordinates(this.cacher.getCachedValue(location));
             } else {
                 this.geocodeLocation(location)
                     .then((coordinates)=> {
-                        this.setState({
-                            coordinates,
-                            isLocationLoaded: true
-                        })
+                        this.updateCoordinates(coordinates);
                     },
                     (error) => {
                         this.setState({
