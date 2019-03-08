@@ -10,24 +10,25 @@ import {
 } from "react-google-maps";
 
 const MapComponent = props => {
-    const {coordinates, isError, isLocationLoaded} = props;
+    const { coordinates, isError, isLocationLoaded } = props;
     return (
         <GoogleMap
-          defaultZoom={13}
-          defaultCenter={coordinates}
-          center={coordinates}
-          options={{disableDefaultUI: isError ? true : false}}
+            defaultZoom={13}
+            defaultCenter={coordinates}
+            center={coordinates}
+            options={{disableDefaultUI: isError ? true : false}}
         >
-        {isLocationLoaded && !isError && <Circle center={coordinates} radius={500} />}
-        {isLocationLoaded && isError &&
-         <InfoWindow position={coordinates} options={{maxWidth: 300}}>
-          <div>
-            Uuuuups, there is problem to find location on the map, we are trying to resolve
-            problem as fast as possible. Contact host for additional informations if you are
-            still interested in booking this place. We are sorry for incoviniance.
-          </div>
-        </InfoWindow>}
-      </GoogleMap>
+            { isLocationLoaded && !isError && <Circle center={coordinates} radius={500} /> }
+            { isLocationLoaded && isError &&
+                <InfoWindow position={coordinates} options={{maxWidth: 300}}>
+                    <div>
+                        Uuuuups, there is problem to find location on the map, we are trying to resolve
+                        problem as fast as possible. Contact host for additional informations if you are
+                        still interested in booking this place. We are sorry for incoviniance.
+                    </div>
+                </InfoWindow>
+            }
+        </GoogleMap>
     )
 }
 
@@ -50,15 +51,7 @@ const withGeocode = WrappedComponent => {
             this.getGeocodedLocation();
         }
 
-        componentDidUpdate() {
-            if (this.props.isReloading) {
-                this.getGeocodedLocation();
-            }
-        }
-
         updateCoordinates(coordinates) {
-            this.props.mapLoaded();
-      
             this.setState({
                 coordinates,
                 isLocationLoaded: true
@@ -93,8 +86,10 @@ const withGeocode = WrappedComponent => {
                         this.updateCoordinates(coordinates);
                     },
                     (error) => {
-                        this.props.mapLoaded();
-                        this.setState({isLocationLoaded: true, isError: true});
+                        this.setState({
+                            isLocationLoaded: true, 
+                            isError: true
+                        })
                     })
             }   
         }
@@ -108,4 +103,6 @@ const withGeocode = WrappedComponent => {
 }
 
 export const MapWithAGeocode = withScriptjs(withGoogleMap(withGeocode(MapComponent)));
+
+
 
