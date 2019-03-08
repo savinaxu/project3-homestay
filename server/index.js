@@ -7,11 +7,13 @@ const userRoutes = require('./routes/users')
 const PORT = process.env.PORT || 3001
 const app = express()
 
-app.use('/api/rentals', rentalRoutes)
-app.use('/api/users', userRoutes)
+
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use('/api/rentals', rentalRoutes)
+app.use('/api/users', userRoutes)
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/homestay"
 
@@ -19,11 +21,13 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/homestay"
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
         .then(() => {
             const fakeDb = new FakeDb()
-            fakeDb.seedDb()
+            // fakeDb.seedDb()
         })
         .catch(e => {
             console.log(e);
         });
+
+
 
 
 
