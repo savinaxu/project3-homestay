@@ -21,7 +21,7 @@ const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/homestay"
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
         .then(() => {
             const fakeDb = new FakeDb()
-            fakeDb.seedDb()
+            // fakeDb.seedDb()
         })
         .catch(e => {
             console.log(e);
