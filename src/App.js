@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
 
-import Header from 'shared/Header';
+import Header from 'components/shared/Header';
 import RentalListing from 'components/rental/rental-listing/RentalListing';
 import RentalDetail from 'components/rental/rental-detail/RentalDetail';
 // import Login from 'components/login/Login';

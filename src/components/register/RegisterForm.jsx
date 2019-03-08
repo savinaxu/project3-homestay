@@ -1,108 +1,47 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { BwmInput } from 'components/shared/form/BwmInput';
+import { BwmResError } from 'components/shared/form/BwmResError';
 
 const RegisterForm = props => {
-    // const { handleSubmit, pristine, submitting, submitCb, valid, errors } = props
-    // return (
-    //   <form onSubmit={handleSubmit(submitCb)}>
-    //     <Field
-    //       name="username"
-    //       type="text"
-    //       label='Username'
-    //       className='form-control'
-    //     //   component={BwmInput}
-    //     />
-    //     <Field
-    //       name="email"
-    //       type="email"
-    //       label='Email'
-    //       className='form-control'
-    //     //   component={BwmInput}
-    //     />
-    //     <Field
-    //       name="password"
-    //       type="password"
-    //       label='Password'
-    //       className='form-control'
-    //     //   component={BwmInput}
-    //     />
-    //     <Field
-    //       name="passwordConfirmation"
-    //       type="password"
-    //       label='Password Confirmation'
-    //       className='form-control'
-    //     //   component={BwmInput}
-    //     />
-    //     <button className='btn btn-bwm btn-form' type="submit" disabled={!valid || pristine || submitting}>
-    //       Register
-    //     </button>
-    //     {/* <BwmResError errors={errors} /> */}
-    //   </form>
-    // )
-
-    const { handleSubmit, pristine, reset, submitting } = props
+    const { handleSubmit, pristine, submitting, submitCb, valid, errors } = props
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Username</label>
-                <div>
-                    <Field
-                        name="username"
-                        component="input"
-                        type="text"
-                        placeholder="Username"
-                        className='form-control'
-                    />
-                </div>
-            </div>
-            
-            <div>
-                <label>Email</label>
-                <div>
-                    <Field
-                        name="email"
-                        component="input"
-                        type="email"
-                        placeholder="Email"
-                        className='form-control'
-                    />
-                </div>
-            </div>
-
-            <div>
-                <label>Password</label>
-                <div>
-                    <Field
-                        name="password"
-                        component="input"
-                        type="password"
-                        className='form-control'
-                    />
-                </div>
-            </div>
-
-            <div>
-                <label>Confirmation Password</label>
-                <div>
-                    <Field
-                        name="passwordConfirmation"
-                        component="input"
-                        type="password"
-                        className='form-control'
-                    />
-                </div>
-            </div>
-            
-            <div>
-                <button type="submit" disabled={pristine || submitting}>
-                    Submit
-                </button>
-                <button type="button" disabled={pristine || submitting} onClick={reset}>
-                    Clear Values
-                </button>
-            </div>
-        </form>
+      <form onSubmit={handleSubmit(submitCb)}>
+        <Field
+          name="username"
+          type="text"
+          label='Username'
+          className='form-control'
+          component={BwmInput}
+        />
+        <Field
+          name="email"
+          type="email"
+          label='Email'
+          className='form-control'
+          component={BwmInput}
+        />
+        <Field
+          name="password"
+          type="password"
+          label='Password'
+          className='form-control'
+          component={BwmInput}
+        />
+        <Field
+          name="passwordConfirmation"
+          type="password"
+          label='Password Confirmation'
+          className='form-control'
+          component={BwmInput}
+        />
+        <button className='btn btn-bwm btn-form' type="submit" disabled={!valid || pristine || submitting}>
+          Register
+        </button>
+        <BwmResError errors={errors} />
+      </form>
     )
+
 }
   
   const validate = values => {
