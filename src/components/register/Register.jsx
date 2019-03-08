@@ -16,18 +16,18 @@ export class Register extends Component {
     }
 
     registerUser(userData) {
-        // actions.register(userData)
-        //        .then(registered => 
-        //             this.setState({redirect: true}),
-        //             errors => 
-        //             this.setState({errors}));
+        actions.register(userData)
+               .then(registered => 
+                    this.setState({redirect: true}),
+                    errors => 
+                    this.setState({errors}));
     }
 
     render() {
         const { errors, redirect } = this.state;
-        // if (redirect) {
-        //     return <Redirect to={{pathname: '/login', state: { successRegister: true }}} />
-        // }
+        if (redirect) {
+            return <Redirect to={{pathname: '/login', state: { successRegister: true }}} />
+        }
 
         return(
             <section id='register'>
