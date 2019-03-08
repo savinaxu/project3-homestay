@@ -25,9 +25,9 @@ export class Register extends Component {
 
     render() {
         const { errors, redirect } = this.state;
-        // if (redirect) {
-        //     return <Redirect to={{pathname: '/login', state: { successRegister: true }}} />
-        // }
+        if (redirect) {
+            return <Redirect to={{pathname: '/login', state: { successRegister: true }}} />
+        }
 
         return(
             <section id='register'>
