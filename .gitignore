@@ -67,3 +67,6 @@ yarn.lock
 
 #ignore build folder
 /build
+
+#ignore vscode folder
+/.vscode
