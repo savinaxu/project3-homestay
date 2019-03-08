@@ -16,11 +16,11 @@ export class Register extends Component {
     }
 
     registerUser(userData) {
-        // actions.register(userData)
-        //        .then(registered => 
-        //             this.setState({redirect: true}),
-        //             errors => 
-        //             this.setState({errors}));
+        actions.register(userData)
+               .then(registered => 
+                    this.setState({redirect: true}),
+                    errors => 
+                    this.setState({errors}));
     }
 
     render() {

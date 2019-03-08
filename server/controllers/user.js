@@ -90,7 +90,7 @@ exports.register = function (req, res) {
             return res.status(422).send({
                 errors: [{
                     title: 'Invalid email!',
-                    detail: 'Email already exists!'
+                    detail: 'User with this email already exists!'
                 }]
             })
         }
