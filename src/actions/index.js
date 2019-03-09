@@ -1,5 +1,7 @@
 import axios from 'axios'
 import authService from 'services/auth-service'
+import axiosService from 'services/axios-service'
+
 import { FETCH_RENTALS_BY_ID_SUCCESS,
          FETCH_RENTALS_BY_ID_INIT,
          FETCH_RENTALS_SUCCESS,
@@ -16,6 +18,12 @@ import { FETCH_RENTALS_BY_ID_SUCCESS,
          RESET_RENTAL_ERRORS,
          RELOAD_MAP,
          RELOAD_MAP_FINISH } from './types'
+
+const axiosInstance = axiosService.getInstance();
+
+// export const verifyRentalOwner = (rentalId) => {
+//     return axiosInstance.get(`/rentals/${rentalId}/verify-user`);
+// }
 
 // RENTALS ATIONS ---------------------------
 
@@ -41,7 +49,7 @@ const fetchRentalsSuccess = rentals => {
 
 export const fetchRentals = () => {
     return dispatch => {
-        axios.get("/api/rentals")
+        axiosInstance.get("/rentals")
              .then(res => res.data)
              .then(rentals => dispatch(fetchRentalsSuccess(rentals)))
     }

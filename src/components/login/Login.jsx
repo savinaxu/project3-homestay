@@ -12,7 +12,6 @@ class Login extends Component {
 
     loginUser(userData) {
         this.props.dispatch(actions.login(userData));
-        console.log(userData)
     }
 
     render() {
@@ -40,7 +39,7 @@ class Login extends Component {
                         <div className="col-md-6 ml-auto">
                             <div className="image-container">
                                 <h2 className="catchphrase">Hundreds of awesome places in reach of few clicks.</h2>
-                                <img src='' alt=""/>
+                                <img src={process.env.PUBLIC_URL + '/img/login-image.jpg'} alt="home stay"/>
                             </div>
                         </div>
                     </div>
