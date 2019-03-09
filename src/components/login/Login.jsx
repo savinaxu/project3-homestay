@@ -5,13 +5,13 @@ import { Redirect } from  'react-router-dom';
 import * as actions from 'actions';
 
 class Login extends Component {
-    // constructor() {
-    //     super()
-    //     this.loginUser = this.loginUser.bind(this)
-    // }
+    constructor() {
+        super()
+        this.loginUser = this.loginUser.bind(this)
+    }
 
     loginUser(userData) {
-        // this.props.dispatch(actions.login(userData));
+        this.props.dispatch(actions.login(userData));
         console.log(userData)
     }
 
@@ -46,12 +46,10 @@ class Login extends Component {
 
 }
 
-// function mapStateToProps(state) {
-//     return {
-//       auth: state.auth
-//     }
-// }
+function mapStateToProps(state) {
+    return {
+      auth: state.auth
+    }
+}
 
-// export default connect(mapStateToProps)(Login)
-
-export default Login
+export default connect(mapStateToProps)(Login)
