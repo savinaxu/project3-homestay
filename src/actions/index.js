@@ -70,6 +70,7 @@ const loginSuccess = () => {
   
     return {
         type: LOGIN_SUCCESS,
+        username
     }
 }
 
@@ -94,12 +95,19 @@ export const login = (userData) => {
                   .then(res => res.data)
                   .then(token => {
                       authService.saveToken(token);
-                      localStorage.setItem("auth_token", token)
                       dispatch(loginSuccess());
                     })
                   .catch(({response}) => {
                       dispatch(loginFailure(response.data.errors));
                    })
+    }
+}
+
+export const logout = () => {
+    authService.invalidateUser();
+  
+    return {
+       type: LOGOUT
     }
 }
   
