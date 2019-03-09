@@ -68,6 +68,19 @@ class Booking extends Component {
             }
         });
     }
+
+    selectGuests(event) {
+        this.setState({
+            proposedBooking: {
+                ...this.state.proposedBooking,
+                guests: parseInt(event.target.value, 10)
+            }
+        })
+    }
+
+    reserve() {
+        console.log(this.state)
+    }
     
     render() {
         const {rental} = this.props
@@ -90,9 +103,17 @@ class Booking extends Component {
                 </div>
                 <div className='form-group'>
                     <label htmlFor='guests'>Guests</label>
-                    <input type='number' className='form-control' id='guests' aria-describedby='emailHelp' placeholder=''></input>
+                    <input onChange={event => { this.selectGuests(event)}}
+                        //    value={guests}
+                           type='number'
+                           className='form-control'
+                           id='guests'
+                           aria-describedby='guests'
+                           placeholder=''
+                    >
+                    </input>
                 </div>
-                <button className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
+                <button onClick={()=> this.reserve()} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
                 <hr></hr>
                 <p className='booking-note-title'>People are interested into this house</p>
                 <p className='booking-note-text'>
