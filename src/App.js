@@ -9,6 +9,9 @@ import RentalDetail from 'components/rental/rental-detail/RentalDetail';
 import Login from 'components/login/Login';
 import { Register } from 'components/register/Register';
 
+import { ProtectedRoute } from 'components/shared/auth/ProtectedRoute';
+import { LoggedInRoute } from 'components/shared/auth/LoggedInRoute';
+
 import * as actions from 'actions';
 
 import 'App.css';
@@ -39,7 +42,7 @@ class App extends Component {
             <Route exact path="/" render={() => <Redirect to ="/rentals" /> } />
             <Route exact path="/rentals" component = {RentalListing} />
             <Route exact path="/rentals/:id" component = {RentalDetail} />
-            <Route exact path="/register" component = {Register} />
+            <LoggedInRoute exact path="/register" component = {Register} />
             <Route exact path="/login" component = {Login} />
           </div>
         </div>
