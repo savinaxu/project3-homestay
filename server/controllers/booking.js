@@ -19,7 +19,6 @@ exports.createBooking = function(req, res) {
           .populate('bookings')
           .populate('user')
           .exec(async function(err, foundRental) {
-              console.log(rental._id, foundRental)
               if (err) {
                   return res.status(422).send({errors: normalizeErrors(err.errors)});
               }
@@ -28,6 +27,70 @@ exports.createBooking = function(req, res) {
                   return res.status(422).send({errors: [{title: 'Invalid User!', detail: 'Cannot create booking on your Rental!'}]});
               }
 
-              return res.json({booking, foundRental})
+              if (isValidBooking(booking, foundRental)) {
+                  
+                  booking.user = user;
+                  booking.rental = foundRental;
+                  foundRental.bookings.push(booking);
+                  
+
+                  booking.save(function(err) {
+                      if (err) {
+                        return res.status(422).send({errors: normalizeErrors(err.errors)});
+                      }
+          
+                      foundRental.save()
+                      User.update({_id: user.id}, 
+                                  {$push: {bookings: booking}}, 
+                                  function(err){
+                                    if (err) {
+                                        return res.status(422).send({
+                                            errors: normalizeErrors(err.errors)
+                                        })
+                                    }
+                                  });
+          
+                      return res.json({startAt: booking.startAt, endAt: booking.endAt});
+                  });
+                //   const { payment, err } = await createPayment(booking, foundRental.user, paymentToken);
+          
+                //   if (payment) {
+                //     booking.payment = payment;
+                //     booking.save(function(err) {
+                //     if (err) {
+                //         return res.status(422).send({errors: normalizeErrors(err.errors)});
+                //     }
+        
+                //     foundRental.save()
+                //     User.update({_id: user.id}, {$push: {bookings: booking}}, function(){});
+        
+                //     return res.json({startAt: booking.startAt, endAt: booking.endAt});
+                //   });
+                // } else {
+                //     return res.status(422).send({errors: [{title: 'Payment Error', detail: err}]});
+                // }
+              } else {
+                  return res.status(422).send({errors: [{title: 'Invalid Booking!', detail: 'Choosen dates are already taken!'}]});
+              }
+              
            })
+}
+
+function isValidBooking(proposedBooking, rental) {
+    let isValid = true;
+  
+    if (rental.bookings && rental.bookings.length > 0) {
+  
+        isValid = rental.bookings.every(function(booking) {
+            const proposedStart = moment(proposedBooking.startAt);
+            const proposedEnd = moment(proposedBooking.endAt);
+    
+            const actualStart = moment(booking.startAt);
+            const actualEnd = moment(booking.endAt);
+    
+            return ((actualStart < proposedStart && actualEnd < proposedStart) || (proposedEnd < actualEnd && proposedEnd < actualStart));
+        });
+    }
+  
+    return isValid;
 }
