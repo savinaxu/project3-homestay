@@ -5,31 +5,37 @@ import { Redirect } from  'react-router-dom';
 import * as actions from 'actions';
 
 class Login extends Component {
-    // constructor() {
-    //     super()
-    //     this.loginUser = this.loginUser.bind(this)
-    // }
+    constructor() {
+        super()
+        this.loginUser = this.loginUser.bind(this)
+    }
 
     loginUser(userData) {
-        // this.props.dispatch(actions.login(userData));
+        this.props.dispatch(actions.login(userData));
         console.log(userData)
     }
 
     render() {
+        const { isAuth, errors } = this.props.auth;
+        const { successRegister } = this.props.location.state || false;
+
+        if (isAuth) {
+            return <Redirect to={{pathname: '/rentals'}} />
+        }
+
         return(
             <section id="login">
                 <div className="bwm-form">
                     <div className="row">
                         <div className="col-md-5">
                             <h1>Login</h1>
-                            {/* {
+                            {
                                 successRegister &&
                                 <div className='alert alert-success'>
                                     <p> You have been succesfuly registered, please login now. </p>
                                 </div>
-                            } */}
-                            {/* <LoginForm submitCb={this.loginUser} errors={errors}/> */}
-                            <LoginForm submitCb={this.loginUser}/>
+                            }
+                            <LoginForm submitCb={this.loginUser} errors={errors}/>
                         </div>
                         <div className="col-md-6 ml-auto">
                             <div className="image-container">
@@ -46,12 +52,10 @@ class Login extends Component {
 
 }
 
-// function mapStateToProps(state) {
-//     return {
-//       auth: state.auth
-//     }
-// }
+function mapStateToProps(state) {
+    return {
+      auth: state.auth
+    }
+}
 
-// export default connect(mapStateToProps)(Login)
-
-export default Login
+export default connect(mapStateToProps)(Login)

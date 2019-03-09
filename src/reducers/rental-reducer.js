@@ -1,6 +1,6 @@
 import { FETCH_RENTALS_BY_ID_SUCCESS, 
          FETCH_RENTALS_BY_ID_INIT,
-         FETCH_RENTALS_SUCCESS } from '../actions/type'
+         FETCH_RENTALS_SUCCESS } from '../actions/types'
 
 const INITIAL_STATE = {
     rentals: {
