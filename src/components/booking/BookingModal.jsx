@@ -23,6 +23,7 @@ export function BookingModal(props) {
                 <p>Price: <em>{booking.totalPrice}$ </em></p>
                 <p>Do you confirm your booking for selected days?</p>
             </div>
+            <BwmResError errors={errors} />
             <div className='modal-footer'>
                 <button disabled={disabled} onClick={confirmModal} type='button' className='btn btn-bwm'>Confirm</button>
                 <button type='button' onClick={closeModal} className='btn btn-bwm'>Cancel</button>

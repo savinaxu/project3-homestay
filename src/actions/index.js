@@ -66,6 +66,9 @@ export const fetchRentalsById = (rentalId) => {
     }  
 }
 
+// USER BOOKINGS ACTIONS ---------------------------
+
+
 // AUTH ACTIONS ---------------------------
 export const register = (userData) => {
     return axios.post('/api/users/register', userData)
@@ -117,6 +120,12 @@ export const logout = () => {
     return {
        type: LOGOUT
     }
+}
+
+export const createBooking = (booking) => {
+    return axiosInstance.post('/bookings', booking)
+                        .then(res => res.data)
+                        .catch(({response}) => Promise.reject(response.data.errors))
 }
   
 

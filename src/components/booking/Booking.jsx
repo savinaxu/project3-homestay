@@ -31,7 +31,7 @@ class Booking extends Component {
         this.checkInvalidDates = this.checkInvalidDates.bind(this);
         this.handleApply = this.handleApply.bind(this);
         this.cancelConfirmation = this.cancelConfirmation.bind(this);
-        // this.reserveRental = this.reserveRental.bind(this);
+        this.reserveRental = this.reserveRental.bind(this);
         // this.setPaymentToken = this.setPaymentToken.bind(this);
 
     }
@@ -108,6 +108,33 @@ class Booking extends Component {
             }
         });
     }
+
+    addNewBookedOutDates(booking) {
+        const dateRange = getRangeOfDates(booking.startAt, booking.endAt);
+        this.bookedOutDates.push(...dateRange);
+    }
+
+    resetData() {
+        this.dateRef.current.value = '';
+        this.setState({
+            proposedBooking: {
+                guests: ''
+            }
+        });
+    }
+
+    reserveRental() {
+        actions.createBooking(this.state.proposedBooking)
+               .then(booking => {
+                    this.addNewBookedOutDates(booking);
+                    this.cancelConfirmation();
+                    this.resetData();
+                    // toast.success('Booking has been succesfuly created! Enjoy.');
+                },
+                (errors) => {
+                    this.setState({errors});
+                })
+    }
     
     render() {
         const {rental} = this.props
@@ -150,7 +177,7 @@ class Booking extends Component {
                 <BookingModal 
                     open={this.state.modal.open}
                     closeModal={this.cancelConfirmation}
-                    // confirmModal={this.reserveRental}
+                    confirmModal={this.reserveRental}
                     booking={this.state.proposedBooking}
                     errors={this.state.errors}
                     rentalPrice={rental.dailyRate}
