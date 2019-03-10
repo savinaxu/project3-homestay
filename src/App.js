@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 
 import Header from 'components/shared/Header';
 import RentalListing from 'components/rental/rental-listing/RentalListing';
+import RentalSearchListing from 'components/rental/rental-listing/RentalSearchListing';
 import RentalDetail from 'components/rental/rental-detail/RentalDetail';
 import Login from 'components/login/Login';
 import { Register } from 'components/register/Register';
@@ -41,6 +42,7 @@ class App extends Component {
           <div className='container'>
             <Route exact path="/" render={() => <Redirect to ="/rentals" /> } />
             <Route exact path="/rentals" component = {RentalListing} />
+            <Route exact path='/rentals/:city/homes' component={RentalSearchListing} />
             <Route exact path="/rentals/:id" component = {RentalDetail} />
             <LoggedInRoute exact path="/register" component = {Register} />
             <Route exact path="/login" component = {Login} />
