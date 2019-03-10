@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
+import { ToastContainer, toast } from 'react-toastify';
 import { BookingModal } from './BookingModal';
 import { getRangeOfDates } from 'helpers';
 import { connect } from 'react-redux';
@@ -79,10 +80,6 @@ class Booking extends Component {
         })
     }
 
-    reserve() {
-        console.log(this.state)
-    }
-
     cancelConfirmation() {
         this.setState({
             modal: {
@@ -129,7 +126,7 @@ class Booking extends Component {
                     this.addNewBookedOutDates(booking);
                     this.cancelConfirmation();
                     this.resetData();
-                    // toast.success('Booking has been succesfuly created! Enjoy.');
+                    toast.success('Booking has been succesfuly created! Enjoy.');
                 },
                 (errors) => {
                     this.setState({errors});
@@ -142,6 +139,7 @@ class Booking extends Component {
 
         return(
             <div className='booking'>
+                <ToastContainer />
                 <h3 className='booking-price'>${rental.dailyRate} <span className='booking-per-night'>per night</span></h3>
                 <hr></hr>
                 <div className='form-group'>
@@ -159,7 +157,7 @@ class Booking extends Component {
                 <div className='form-group'>
                     <label htmlFor='guests'>Guests</label>
                     <input onChange={event => { this.selectGuests(event)}}
-                        //    value={guests}
+                           value={guests}
                            type='number'
                            className='form-control'
                            id='guests'
