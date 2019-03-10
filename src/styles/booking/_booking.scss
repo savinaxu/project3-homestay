@@ -2,7 +2,7 @@
 
 .booking {
     padding: 20px;
-    border: 1px solid $light-gray-color-2;
+    border: 1px solid $light-gray-color-2 !important;
 
     a:hover {
         color: white;
@@ -12,6 +12,8 @@
         font-size: 17px;
         font-weight: 700;
         padding: 13px;
+        background-color: $main-color;
+        color: white;
     }
 
     label {
