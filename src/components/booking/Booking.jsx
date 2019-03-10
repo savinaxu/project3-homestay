@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
+import { BookingModal } from './BookingModal';
 import { getRangeOfDates } from 'helpers';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -29,7 +30,7 @@ class Booking extends Component {
       
         this.checkInvalidDates = this.checkInvalidDates.bind(this);
         this.handleApply = this.handleApply.bind(this);
-        // this.cancelConfirmation = this.cancelConfirmation.bind(this);
+        this.cancelConfirmation = this.cancelConfirmation.bind(this);
         // this.reserveRental = this.reserveRental.bind(this);
         // this.setPaymentToken = this.setPaymentToken.bind(this);
 
@@ -81,9 +82,36 @@ class Booking extends Component {
     reserve() {
         console.log(this.state)
     }
+
+    cancelConfirmation() {
+        this.setState({
+            modal: {
+                open: false
+            }
+        })
+    }
+
+    confirmProposedData() {
+        const {startAt, endAt} = this.state.proposedBooking;
+        const days = getRangeOfDates(startAt, endAt).length - 1;
+        const { rental } = this.props;
+    
+        this.setState({
+            proposedBooking: {
+                ...this.state.proposedBooking,
+                days,
+                totalPrice: days * rental.dailyRate,
+                rental
+            },
+            modal: {
+                open: true
+            }
+        });
+    }
     
     render() {
         const {rental} = this.props
+        const { startAt, endAt, guests } = this.state.proposedBooking;
 
         return(
             <div className='booking'>
@@ -113,12 +141,22 @@ class Booking extends Component {
                     >
                     </input>
                 </div>
-                <button onClick={()=> this.reserve()} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
+                <button disabled={!startAt || !endAt || !guests} onClick={()=> this.confirmProposedData()} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
                 <hr></hr>
                 <p className='booking-note-title'>People are interested into this house</p>
                 <p className='booking-note-text'>
                 More than 500 people checked this rental in last month.
                 </p>
+                <BookingModal 
+                    open={this.state.modal.open}
+                    closeModal={this.cancelConfirmation}
+                    // confirmModal={this.reserveRental}
+                    booking={this.state.proposedBooking}
+                    errors={this.state.errors}
+                    rentalPrice={rental.dailyRate}
+                    // disabled={!paymentToken}
+                    // acceptPayment={() => <Payment setPaymentToken={this.setPaymentToken}/>}
+                />
             </div>
         )
     }
