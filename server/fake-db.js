@@ -1,5 +1,6 @@
 const Rental = require('./models/rental');
 const User = require('./models/user');
+const Booking = require('./models/booking');
 const fakeDbData = require('./data.json');
 
 class FakeDb {
@@ -10,7 +11,8 @@ class FakeDb {
 
     async cleanDb() {
         await User.remove({});
-        await Rental.remove({})
+        await Rental.remove({});
+        await Booking.remove({});
     }
 
     pushDataToDb() {
