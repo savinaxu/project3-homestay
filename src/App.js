@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import Header from 'components/shared/Header';
+import Footer from 'components/shared/Footer';
 import RentalListing from 'components/rental/rental-listing/RentalListing';
 import RentalSearchListing from 'components/rental/rental-listing/RentalSearchListing';
 import RentalDetail from 'components/rental/rental-detail/RentalDetail';
@@ -51,6 +52,7 @@ class App extends Component {
               <LoggedInRoute exact path="/register" component = {Register} />
             </Switch>
           </div>
+          <Footer />
         </div>
         </BrowserRouter>
       </Provider>

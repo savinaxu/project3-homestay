@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RentalCreateForm from './RentalCreateForm';
 import { Redirect } from 'react-router-dom';
 
-// import * as actions from 'actions';
+import * as actions from 'actions';
 
 class RentalCreate extends Component {
     constructor() {
@@ -19,11 +19,9 @@ class RentalCreate extends Component {
     }
 
     createRental(rentalData) {
-        console.log(rentalData)
-
-        // actions.createRental(rentalData).then(
-        //   (rental) => this.setState({redirect: true}),
-        //   (errors) => this.setState({errors}))
+        actions.createRental(rentalData)
+               .then(rental => this.setState({redirect: true}),
+                     errors => this.setState({errors}))
     }
     
     render() {
