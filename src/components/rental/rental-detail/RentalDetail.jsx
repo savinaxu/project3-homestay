@@ -11,7 +11,7 @@ class RentalDetail extends Component {
         //dispatch action
         const rentalId = this.props.match.params.id
 
-        this.props.dispatch(actions.fetchRentalsById(rentalId))
+        this.props.dispatch(actions.fetchRentalById(rentalId))
     }
     render() {
         const rental = this.props.rental
