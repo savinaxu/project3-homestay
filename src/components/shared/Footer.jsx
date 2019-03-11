@@ -12,7 +12,7 @@ function Footer() {
                     <a href="https://www.instagram.com/supa.savina/?hl=en"><i className="fab fa-instagram"></i></a>
                 </div>
                 <p>
-                    Copyright &copy; 2019.Savina Xu All rights reserved.
+                    Copyright &copy; 2019. Homestay Group All rights reserved.
                 </p>
             </div>
         </footer>
