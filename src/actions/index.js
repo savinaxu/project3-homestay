@@ -99,12 +99,12 @@ export const fetchRentalById = (rentalId) => {
     }
 }
 
-// export const createRental = (rentalData) => {
-//     return axiosInstance.post('/rentals', rentalData).then(
-//         res => res.data,
-//         err => Promise.reject(err.response.data.errors)
-//     )
-// }
+export const createRental = (rentalData) => {
+    return axiosInstance.post('/rentals', rentalData).then(
+        res => res.data,
+        err => Promise.reject(err.response.data.errors)
+    )
+}
 
 // export const resetRentalErrors = () => {
 //     return {
