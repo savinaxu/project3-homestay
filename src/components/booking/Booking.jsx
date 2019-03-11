@@ -5,6 +5,7 @@ import { BookingModal } from './BookingModal';
 import { getRangeOfDates } from 'helpers';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+// import Payment from '../payment/Payment';
 
 import * as moment from 'moment';
 import * as actions from 'actions';
@@ -88,6 +89,27 @@ class Booking extends Component {
         })
     }
 
+    // setPaymentToken(paymentToken) {
+    //     const {proposedBooking} = this.state;
+    //     proposedBooking.paymentToken = paymentToken;
+    
+    //     this.setState({proposedBooking});
+    // }
+
+    addNewBookedOutDates(booking) {
+        const dateRange = getRangeOfDates(booking.startAt, booking.endAt);
+        this.bookedOutDates.push(...dateRange);
+    }
+
+    resetData() {
+        this.dateRef.current.value = '';
+        this.setState({
+            proposedBooking: {
+                guests: ''
+            }
+        });
+    }
+
     confirmProposedData() {
         const {startAt, endAt} = this.state.proposedBooking;
         const days = getRangeOfDates(startAt, endAt).length - 1;
@@ -106,20 +128,6 @@ class Booking extends Component {
         });
     }
 
-    addNewBookedOutDates(booking) {
-        const dateRange = getRangeOfDates(booking.startAt, booking.endAt);
-        this.bookedOutDates.push(...dateRange);
-    }
-
-    resetData() {
-        this.dateRef.current.value = '';
-        this.setState({
-            proposedBooking: {
-                guests: ''
-            }
-        });
-    }
-
     reserveRental() {
         actions.createBooking(this.state.proposedBooking)
                .then(booking => {
@@ -134,7 +142,7 @@ class Booking extends Component {
     }
     
     render() {
-        const {rental} = this.props
+        const {rental, auth: { isAuth } } = this.props
         const { startAt, endAt, guests } = this.state.proposedBooking;
 
         return(
@@ -142,35 +150,44 @@ class Booking extends Component {
                 <ToastContainer />
                 <h3 className='booking-price'>${rental.dailyRate} <span className='booking-per-night'>per night</span></h3>
                 <hr></hr>
-                <div className='form-group'>
-                    <label htmlFor='dates'>Dates</label>
-                    <DateRangePicker 
-                            onApply={this.handleApply}
-                            isInvalidDate={this.checkInvalidDates}
-                            opens='left'
-                            containerStyles={{display: 'block'}}>
+                { !isAuth &&
+                    <Link className='btn btn-bwm btn-confirm btn-block' to={{pathname: '/login'}}>
+                        Login to book place.
+                    </Link>
+                }
+                { isAuth &&
+                    <React.Fragment>
+                        <div className='form-group'>
+                            <label htmlFor='dates'>Dates</label>
+                            <DateRangePicker 
+                                    onApply={this.handleApply}
+                                    isInvalidDate={this.checkInvalidDates}
+                                    opens='left'
+                                    containerStyles={{display: 'block'}}>
 
-                        <input ref={this.dateRef} id='dates' type='text' className='form-control'></input>
-                        
-                    </DateRangePicker >
-                </div>
-                <div className='form-group'>
-                    <label htmlFor='guests'>Guests</label>
-                    <input onChange={event => { this.selectGuests(event)}}
-                           value={guests}
-                           type='number'
-                           className='form-control'
-                           id='guests'
-                           aria-describedby='guests'
-                           placeholder=''
-                    >
-                    </input>
-                </div>
-                <button disabled={!startAt || !endAt || !guests} onClick={()=> this.confirmProposedData()} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
+                                <input ref={this.dateRef} id='dates' type='text' className='form-control'></input>
+                                
+                            </DateRangePicker >
+                        </div>
+                        <div className='form-group'>
+                            <label htmlFor='guests'>Guests</label>
+                            <input onChange={event => { this.selectGuests(event)}}
+                                value={guests}
+                                type='number'
+                                className='form-control'
+                                id='guests'
+                                aria-describedby='guests'
+                                placeholder=''
+                            >
+                            </input>
+                        </div>
+                        <button disabled={!startAt || !endAt || !guests} onClick={()=> this.confirmProposedData()} className='btn btn-bwm btn-confirm btn-block'>Reserve place now</button>
+                    </React.Fragment>
+                }
                 <hr></hr>
                 <p className='booking-note-title'>People are interested into this house</p>
                 <p className='booking-note-text'>
-                More than 500 people checked this rental in last month.
+                    More than 500 people checked this rental in last month.
                 </p>
                 <BookingModal 
                     open={this.state.modal.open}

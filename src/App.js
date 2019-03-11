@@ -43,7 +43,7 @@ class App extends Component {
         <BrowserRouter>
         <div className="App">
           <Header logout={this.logout}/>
-          <div className='container'>
+          <div className='container min-height'>
             <Switch>
               <Route exact path="/" render={() => <Redirect to ="/rentals" /> } />
               <Route exact path="/rentals" component = {RentalListing} />
