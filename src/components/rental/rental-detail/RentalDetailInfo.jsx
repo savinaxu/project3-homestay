@@ -1,6 +1,6 @@
 import React from 'react';
 import { RentalAssets } from './RentalAssets'
-import {toUpperCase, rentalType} from 'helpers'
+import {toUpperCase, rentalType} from '../../../helpers'
 
 export function RentalDetailInfo(props) {
     const rental = props.rental

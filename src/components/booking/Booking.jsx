@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import { ToastContainer, toast } from 'react-toastify';
 import { BookingModal } from './BookingModal';
-import { getRangeOfDates } from 'helpers';
+import { getRangeOfDates } from '../../helpers';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import Payment from '../payment/Payment';
 
 import * as moment from 'moment';
-import * as actions from 'actions';
+import * as actions from '../../actions';
 
 class Booking extends Component {
     constructor() {

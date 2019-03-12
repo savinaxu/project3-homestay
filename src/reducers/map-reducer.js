@@ -1,7 +1,7 @@
 import {
     RELOAD_MAP,
     RELOAD_MAP_FINISH
-} from 'actions/types';
+} from '../actions/types';
 
 const INITIAL_STATE = {
     isReloading: false

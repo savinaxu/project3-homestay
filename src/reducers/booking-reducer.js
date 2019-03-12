@@ -2,7 +2,7 @@ import {
     FETCH_USER_BOOKINGS_SUCCESS,
     FETCH_USER_BOOKINGS_FAIL,
     FETCH_USER_BOOKINGS_INIT
-} from 'actions/types';
+} from '../actions/types';
 
 const INITIAL_STATE = {
     data: [],

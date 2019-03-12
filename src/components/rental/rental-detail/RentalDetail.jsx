@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from 'actions'
+import * as actions from '../../../actions'
 import { RentalDetailInfo } from './RentalDetailInfo'
-import Booking from 'components/booking/Booking';
+import Booking from '../../booking/Booking';
 
 import RentalMap from './RentalMap'
 

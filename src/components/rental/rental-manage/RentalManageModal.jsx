@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-responsive-modal';
-import { pretifyDate } from 'helpers';
+import { pretifyDate } from '../../../helpers';
 
 export class RentalManageModal extends Component {
 

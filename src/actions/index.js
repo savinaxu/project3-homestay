@@ -1,6 +1,6 @@
 import axios from 'axios';
-import authService from 'services/auth-service';
-import axiosService from 'services/axios-service';
+import authService from '../services/auth-service';
+import axiosService from '../services/axios-service';
 
 import {
     FETCH_RENTAL_BY_ID_SUCCESS,

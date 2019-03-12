@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { pretifyDate, toUpperCase } from 'helpers';
+import { pretifyDate, toUpperCase } from '../../../helpers';
 
 export function BookingCard(props) {
 
