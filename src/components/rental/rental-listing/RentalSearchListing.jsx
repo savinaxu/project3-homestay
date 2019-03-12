@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import RentalList from './RentalList';
 import { connect } from 'react-redux';
 
-import { toUpperCase } from 'helpers';
-import * as actions from 'actions';
+import { toUpperCase } from '../../../helpers';
+import * as actions from '../../../actions';
 
 class RentalSearchListing extends Component {
 
