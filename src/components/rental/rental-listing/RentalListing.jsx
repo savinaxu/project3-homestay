@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RentalList from "./RentalList";
 
-import * as actions from 'actions';
+import * as actions from '../../../actions';
 
 class RentalListing extends Component {
 
