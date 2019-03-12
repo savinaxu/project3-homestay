@@ -17,7 +17,7 @@ import BookingManage from 'components/booking/booking-manage/BookingManage';
 import { ProtectedRoute } from 'components/shared/auth/ProtectedRoute';
 import { LoggedInRoute } from 'components/shared/auth/LoggedInRoute';
 
-import * as actions from 'actions';
+import * as actions from './actions';
 
 import 'App.css';
 
