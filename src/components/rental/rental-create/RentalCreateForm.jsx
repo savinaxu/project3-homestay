@@ -1,10 +1,10 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { BwmInput } from '../../../shared/form/BwmInput';
-import { BwmSelect } from '../../../shared/form/BwmSelect';
-import { BwmTextArea } from '../../../shared/form/BwmTextArea';
-import { BwmFileUpload } from '../../../shared/form/BwmFileUpload';
-import { BwmResError } from '../../../shared/form/BwmResError';
+import { BwmInput } from '../../shared/form/BwmInput';
+import { BwmSelect } from '../../shared/form/BwmSelect';
+import { BwmTextArea } from '../../shared/form/BwmTextArea';
+import { BwmFileUpload } from '../../shared/form/BwmFileUpload';
+import { BwmResError } from '../../shared/form/BwmResError';
 
 const RentalCreateForm = props => {
     const { handleSubmit, pristine, submitting, submitCb, valid, options, errors } = props
